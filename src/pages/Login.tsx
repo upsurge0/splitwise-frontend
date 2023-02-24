@@ -54,7 +54,7 @@ function Login() {
           </button>
           <div>
             <span className="pr-4">Don't have an account?</span>
-            <Link className="text-primary hover:underline" to="/login">
+            <Link className="text-primary hover:underline" to="/">
               Sign up
             </Link>
           </div>

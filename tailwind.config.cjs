@@ -8,6 +8,10 @@ module.exports = {
         secondaryBackground: '#242731',
         primary: '#6C5DD3',
         secondary: '#ecc94b',
+        divider: '#454343',
+        green: '#53CE53',
+        red: '#FF5353',
+        icon: '#808191'
       },
     },
   },
