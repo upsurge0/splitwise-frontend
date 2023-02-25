@@ -6,10 +6,10 @@ type Props = {}
 
 const Summary = (props: Props) => {
   useEffect(() => {
-    Scrollbar.init(document.querySelector('#scrollable-1'), {
+    Scrollbar.init(document.querySelector('#scrollable-1')!, {
       alwaysShowTracks: true,
     })
-    Scrollbar.init(document.querySelector('#scrollable-2'), {
+    Scrollbar.init(document.querySelector('#scrollable-2')!, {
       alwaysShowTracks: true,
     })
   }, [])
