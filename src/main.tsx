@@ -5,6 +5,9 @@ import Login from './pages/Login'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Home from './pages/Home'
+import Groups from './pages/Groups'
+import Friends from './pages/Friends'
+import AddGroup from './pages/AddGroup'
 
 
 const router = createBrowserRouter([
@@ -19,6 +22,18 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <Home />,
+  },
+  {
+    path: '/groups',
+    element: <Groups />,
+  },
+  {
+    path: '/groups/add',
+    element: <AddGroup />,
+  },
+  {
+    path: '/friends',
+    element: <Friends />,
   },
 ])
 

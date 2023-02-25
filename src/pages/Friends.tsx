@@ -1,24 +1,19 @@
-import React from 'react'
 import Sidebar from '../components/Sidebar'
 import Topbar from '../components/Topbar'
-import TotalBalances from '../components/TotalBalances'
-import Summary from '../components/Summary'
 import FAB from '../components/FAB'
 
 type Props = {}
 
-const Home = (props: Props) => {
+const Friends = (props: Props) => {
   return (
     <div className="flex">
       <Sidebar />
       <div className="flex flex-col w-full">
-        <Topbar title='Home' />
-        <TotalBalances />
-        <Summary />
+        <Topbar title='Friends'/>
       </div>
       <FAB />
     </div>
   )
 }
 
-export default Home
+export default Friends

@@ -5,8 +5,6 @@ import Scrollbar from 'smooth-scrollbar'
 type Props = {}
 
 const Summary = (props: Props) => {
-  const ref = useRef<React.LegacyRef<HTMLDivElement> | undefined>()
-
   useEffect(() => {
     Scrollbar.init(document.querySelector('#scrollable-1'), {
       alwaysShowTracks: true,

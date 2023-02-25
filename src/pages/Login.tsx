@@ -1,16 +1,15 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import logo from '../assets/logo.svg'
 import { Link } from 'react-router-dom'
 import { axiosInstance } from '../utils/axiosInstance'
 import classnames from 'classnames'
-import { AxiosError } from 'axios'
 
 function Login() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [error, setError] = useState<string>('error')
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const data = { email, password }
     console.log(data)
