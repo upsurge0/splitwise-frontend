@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import logo from '../assets/logo.svg'
-import { Link } from 'react-router-dom'
-import { axiosInstance } from '../utils/axiosInstance'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAxiosInstance } from '../utils/useAxiosInstance'
 import classnames from 'classnames'
 import { AxiosError } from 'axios'
+import { useDispatch } from 'react-redux'
+import { loginOrRegister } from '../redux/user'
 
 function Register() {
   const [email, setEmail] = useState<string>('')
@@ -11,8 +13,11 @@ function Register() {
   const [password, setPassword] = useState<string>('')
   const [cpassword, setCPassword] = useState<string>('')
   const [error, setError] = useState<string>('error')
+  const axiosInstance = useAxiosInstance()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (password !== cpassword) return setError('Passwords do not match')
     // console.log(axiosInstance.)
@@ -23,12 +28,19 @@ function Register() {
         password,
       },
     }
-    console.log(data)
+
     try {
       const res = await axiosInstance.post('/users', data)
 
       console.log(res.data)
-    } catch (e) {
+      dispatch(
+        loginOrRegister({
+          accessToken: res.data.token,
+          user: res.data.user,
+        })
+      )
+      navigate('/home')
+    } catch (e: any) {
       setError(e.response?.data?.error[0])
     }
   }
@@ -84,7 +96,7 @@ function Register() {
           </div>
           <span
             className={classnames(
-              `text-red-500 ${error !== 'error' ? 'visible' : 'invisible'}`
+              `text-red ${error !== 'error' ? 'visible' : 'invisible'}`
             )}
           >
             {error}

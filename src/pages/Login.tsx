@@ -1,13 +1,18 @@
-import { FormEvent, useState } from 'react'
-import logo from '../assets/logo.svg'
-import { Link } from 'react-router-dom'
-import { axiosInstance } from '../utils/axiosInstance'
 import classnames from 'classnames'
+import { FormEvent, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import logo from '../assets/logo.svg'
+import { loginOrRegister } from '../redux/user'
+import { useAxiosInstance } from '../utils/useAxiosInstance'
 
 function Login() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [error, setError] = useState<string>('error')
+  const axiosInstance = useAxiosInstance()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -17,10 +22,26 @@ function Login() {
       const res = await axiosInstance.post('/users/login', data)
 
       console.log(res.data)
-    } catch (e) {
+
+      dispatch(
+        loginOrRegister({
+          accessToken: res.data.token,
+          user: {
+            email,
+            name: 'test',
+            id: 1,
+          },
+        })
+      )
+
+      navigate('/home')
+    } catch (e: any) {
       setError(e.response?.data?.error)
     }
   }
+  // useEffect(() => {
+  //   console.log({axiosInstance})
+  // }, [axiosInstance])
 
   return (
     <div className="w-full  h-screen flex justify-center">
@@ -59,7 +80,8 @@ function Login() {
           </div>
           <span
             className={classnames(
-              `text-red-500 ${error !== 'error' ? 'visible' : 'invisible'}`
+              'text-red-500',
+              error !== 'error' ? 'visible' : 'invisible'
             )}
           >
             {error}

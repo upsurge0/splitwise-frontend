@@ -26,7 +26,6 @@ const Sidebar = (props: Props) => {
     },
   ]
   const route = useLocation()
-  console.log(route)
 
   return (
     <div className="hidden md:flex">

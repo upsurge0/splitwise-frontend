@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import avatar from '../assets/avatar.svg'
+import useIsLoggedIn from '../utils/useIsLoggedIn'
 
 type MemberProps = {
   email: string
 }
 
 const AddMember = ({ email }: MemberProps) => {
+  useIsLoggedIn()
   return (
     <div className="flex gap-4">
       <img src={avatar} alt="avatar" className="h-10" />

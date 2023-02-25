@@ -20,7 +20,7 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen }: Props) => {
   useEffect(() => {
     const doc = document.querySelector('#scrollable-3')
     doc &&
-      Scrollbar.init(doc, {
+      Scrollbar.init(doc as HTMLElement, {
         alwaysShowTracks: true,
       })
   }, [isSplitOptionsOpen])
