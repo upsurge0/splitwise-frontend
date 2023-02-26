@@ -25,7 +25,6 @@ const Friends = (props: Props) => {
 
   useEffect(() => {
     fetchGroups()
-    console.log(friends)
   }, [])
 
   useIsLoggedIn()
@@ -40,7 +39,7 @@ const Friends = (props: Props) => {
               let even = false
               if (i % 2 !== 0) even = true
               const friendName = g.members.filter(m => m.user_id !== user.user_id)[0].name
-              return <GroupItem name={friendName} even={even} type='friend' />
+              return <GroupItem name={friendName} even={even} type='friend' key={g.group_id} />
             })}
           </div>
         </div>

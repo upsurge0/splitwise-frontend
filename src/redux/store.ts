@@ -1,10 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import user from './user'
+import group from './group'
+import expense from './expense'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 const reducers = combineReducers({
   user,
+  group,
+  expense
 })
 
 const persistConfig = {

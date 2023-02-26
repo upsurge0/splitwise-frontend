@@ -9,8 +9,12 @@ const useIsLoggedIn = () => {
   const pathname = useLocation().pathname
 
   useEffect(() => {
-    if (!user.isLoggedIn) return navigate('/login')
-    if (pathname === '/' || pathname === '/login') navigate('/home')
+    if(pathname !== '/') {
+      if (!user.isLoggedIn) return navigate('/login')
+      if (pathname === '/login') return navigate('/home')
+    } else {
+      if (user.isLoggedIn) return navigate('/home')
+    }
   }, [user])
 }
 

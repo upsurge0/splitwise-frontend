@@ -1,13 +1,14 @@
 import { FormEvent, useEffect, useState } from 'react'
-import useIsLoggedIn from '../utils/useIsLoggedIn'
-import AddMember, { User } from '../components/AddMember'
-import { v4 as uuid } from 'uuid'
-import { useAxiosInstance } from '../utils/useAxiosInstance'
 import { useSelector } from 'react-redux'
-import { RootState } from '../redux/store'
 import { useNavigate } from 'react-router-dom'
-import {  toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { v4 as uuid } from 'uuid'
+import AddMember from '../components/AddMember'
+import { RootState } from '../redux/store'
+import { toastify } from '../utils/notifications'
+import { User } from '../utils/types'
+import { useAxiosInstance } from '../utils/useAxiosInstance'
+import useIsLoggedIn from '../utils/useIsLoggedIn'
 
 const AddGroup = () => {
   const [groupName, setGroupName] = useState('')
@@ -76,17 +77,6 @@ const AddGroup = () => {
     return commonUsers
   }
 
-  const toastify = () => toast.success('Group created', {
-    position: 'top-right',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'dark',
-  })
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const commonUsers = checkUsers()
@@ -108,7 +98,7 @@ const AddGroup = () => {
     try {
       const res = await axiosInstance.post('/groups', data)
       navigate('/groups')
-      toastify()
+      toastify('Group created', 'success')
     } catch (e) {
       console.log(e)
     }
@@ -150,7 +140,7 @@ const AddGroup = () => {
               />
             ))}
             <a
-              className="flex items-center gap-4 hover:underline w-fit"
+              className="flex items-center gap-4 hover:underline w-fit cursor-pointer"
               onClick={handleAddMember}
             >
               + Add a person
