@@ -6,6 +6,7 @@ import classnames from 'classnames'
 import { AxiosError } from 'axios'
 import { useDispatch } from 'react-redux'
 import { loginOrRegister } from '../redux/user'
+import useIsLoggedIn from '../utils/useIsLoggedIn'
 
 function Register() {
   const [email, setEmail] = useState<string>('')
@@ -16,6 +17,7 @@ function Register() {
   const axiosInstance = useAxiosInstance()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  useIsLoggedIn()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()

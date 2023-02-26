@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.svg'
 import { loginOrRegister } from '../redux/user'
 import { useAxiosInstance } from '../utils/useAxiosInstance'
+import useIsLoggedIn from '../utils/useIsLoggedIn'
 
 function Login() {
   const [email, setEmail] = useState<string>('')
@@ -13,6 +14,7 @@ function Login() {
   const axiosInstance = useAxiosInstance()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  useIsLoggedIn()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -26,11 +28,7 @@ function Login() {
       dispatch(
         loginOrRegister({
           accessToken: res.data.token,
-          user: {
-            email,
-            name: 'test',
-            id: 1,
-          },
+          user: res.data.user,
         })
       )
 

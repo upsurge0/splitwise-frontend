@@ -1,3 +1,5 @@
+const { ScrollbarPlugin } = require('smooth-scrollbar')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -11,9 +13,9 @@ module.exports = {
         divider: '#454343',
         green: '#53CE53',
         red: '#FF5353',
-        icon: '#808191'
+        icon: '#808191',
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')({ nocompatible: true })],
 }

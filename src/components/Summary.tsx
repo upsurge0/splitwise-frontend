@@ -15,7 +15,7 @@ const Summary = (props: Props) => {
   }, [])
 
   return (
-    <div className="flex md:px-16">
+    <div className="flex px-4 md:px-16">
       <div className="w-full">
         <h1 className="text-2xl pt-8 pb-6">You owe</h1>
         <div className="pr-4 max-h-[368px] overflow-auto" id="scrollable-1">

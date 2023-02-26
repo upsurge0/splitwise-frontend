@@ -10,6 +10,9 @@ import Friends from './pages/Friends'
 import AddGroup from './pages/AddGroup'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
+import { ToastContainer } from 'react-toastify'
 
 const router = createBrowserRouter([
   {
@@ -38,8 +41,15 @@ const router = createBrowserRouter([
   },
 ])
 
+let persistor = persistStore(store)
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <PersistGate loading={null} persistor={persistor}>
+      <div>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </div>
+    </PersistGate>
   </Provider>
 )

@@ -1,16 +1,16 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 const useIsLoggedIn = () => {
   const user = useSelector((state: RootState) => state.user)
   const navigate = useNavigate()
-
-  console.log(user)
+  const pathname = useLocation().pathname
 
   useEffect(() => {
-    if (!user.isLoggedIn) navigate('/login')
+    if (!user.isLoggedIn) return navigate('/login')
+    if (pathname === '/' || pathname === '/login') navigate('/home')
   }, [user])
 }
 
