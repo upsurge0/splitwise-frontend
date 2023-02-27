@@ -13,6 +13,7 @@ import { store } from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import { ToastContainer } from 'react-toastify'
+import ViewGroup from './pages/ViewGroup'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: '/groups',
     element: <Groups />,
+  },
+  {
+    path: '/groups/:id',
+    element: <ViewGroup />,
   },
   {
     path: '/groups/add',

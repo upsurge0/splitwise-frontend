@@ -47,37 +47,65 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen }: Props) => {
     } catch (e) {}
   }
 
-  const handleSubmit = (e:FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    
-    if(!title) {
+
+    if (!title) {
       return toastify('Description required', 'error')
-    } 
-    if(!totalAmount) {
+    }
+    if (!totalAmount) {
       return toastify('Total amount required', 'error')
-    } 
+    }
 
     let members
 
-    const group = groups.find(g => g.group_id === groupId)
+    const group = groups.find((g) => g.group_id === groupId)
+    const sum = expense.members.map((m) => m.amount).reduce((a, b) => a + b, 0)
 
-    if(splitType === 'equal') {
-      members = expense.members.map(m => {
-        return {...m, amount: totalAmount / group?.members?.length!}
+    if (splitType === 'equal') {
+      members = expense.members.map((m) => {
+        return { ...m, amount: totalAmount / group?.members?.length! }
       })
     } else if (splitType === 'exact') {
-      const sum = expense.members.map(m => m.amount).reduce((a, b) => a + b, 0)
-      if(sum !== totalAmount) return toastify('The sum should equal the total amount', 'error')
+      if (sum !== totalAmount)
+        return toastify('The sum should equal the total amount', 'error')
       members = expense.members
+    } else if (splitType === 'percentages') {
+      if (sum !== 100) return toastify('The sum should equal to 100%', 'error')
+      members = expense.members.map((m) => {
+        return { ...m, amount: (m.amount / 100) * totalAmount }
+      })
+    } else {
+      if(sum === 0) toastify('The sum should not be 0', 'error')
+      members = expense.members.map((m) => {
+        return { ...m, amount: (m.amount / sum) * totalAmount }
+      })
     }
     const data = {
       title,
-      amount: totalAmount,
-      paid_by_id: user.user_id,
-      category: group?.type === 'regular' ? 'multiple' : 'individual',
-      members: members
+      amount: (5.0).toFixed(1),
+      paid_by_id: 12,
+      category: 'multiple',
+      members: [
+        {user_id: 11, owed: (4.0).toFixed(1)},
+        {user_id: 12, owed: (1.0).toFixed(1)},
+      ],
     }
+    // const data = {
+    //   title,
+    //   amount: totalAmount,
+    //   paid_by_id: user.user_id,
+    //   category: group?.type === 'regular' ? 'multiple' : 'individual',
+    //   members: members.map((m) => ({ user_id: m.user_id, owed: m.amount })),
+    // }
     console.log(data)
+    
+    try {
+      const res = await axiosInstance.post(`/groups/${groupId}/expenses`, data)
+      console.log(res.data)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   useEffect(() => {
@@ -162,6 +190,7 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen }: Props) => {
               <button
                 className="bg-[#2f3044] hover:bg-[#4d4a64] rounded-xl px-2 text-primary"
                 onClick={() => setIsSplitOptionsOpen(true)}
+                type="button"
               >
                 equally
               </button>
@@ -174,7 +203,10 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen }: Props) => {
             >
               Cancel
             </button>
-            <button className="flex items-center py-3 px-5 gap-4 bg-primary hover:bg-[#584cac] rounded-lg text-md" type='submit'>
+            <button
+              className="flex items-center py-3 px-5 gap-4 bg-primary hover:bg-[#584cac] rounded-lg text-md"
+              type="submit"
+            >
               Save
             </button>
           </div>
@@ -208,12 +240,7 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen }: Props) => {
                 .find((g) => g.group_id === groupId)
                 ?.members?.map((m) => {
                   return (
-                    <SplitCard
-                      key={uuid()}
-                      type={splitType}
-                      user={m}
-                      groupId={groupId!}
-                    />
+                    <SplitCard type={splitType} user={m} groupId={groupId!} />
                   )
                 })}
             </div>
