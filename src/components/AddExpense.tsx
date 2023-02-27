@@ -15,9 +15,10 @@ import { toastify } from '../utils/notifications'
 type Props = {
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  fetch?: () => void
 }
 
-const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen }: Props) => {
+const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
   const [title, setTitle] = useState('')
   const [totalAmount, setTotalAmount] = useState<number>()
   const [splitType, setSplitType] = useState<SplitType['type']>('equal')
@@ -76,33 +77,30 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen }: Props) => {
         return { ...m, amount: (m.amount / 100) * totalAmount }
       })
     } else {
-      if(sum === 0) toastify('The sum should not be 0', 'error')
+      if (sum === 0) toastify('The sum should not be 0', 'error')
       members = expense.members.map((m) => {
         return { ...m, amount: (m.amount / sum) * totalAmount }
       })
     }
+
     const data = {
-      title,
-      amount: (5.0).toFixed(1),
-      paid_by_id: 12,
-      category: 'multiple',
-      members: [
-        {user_id: 11, owed: (4.0).toFixed(1)},
-        {user_id: 12, owed: (1.0).toFixed(1)},
-      ],
+      expense: {
+        title,
+        amount: totalAmount,
+        paid_by_id: user.user_id,
+        category: group?.type === 'regular' ? 'multiple' : 'individual',
+        members: members.map((m) => ({ user_id: m.user_id, owed: m.amount })),
+      },
     }
-    // const data = {
-    //   title,
-    //   amount: totalAmount,
-    //   paid_by_id: user.user_id,
-    //   category: group?.type === 'regular' ? 'multiple' : 'individual',
-    //   members: members.map((m) => ({ user_id: m.user_id, owed: m.amount })),
-    // }
-    console.log(data)
-    
+
     try {
       const res = await axiosInstance.post(`/groups/${groupId}/expenses`, data)
-      console.log(res.data)
+      setIsOpen(false)
+      setIsSplitOptionsOpen(false)
+      toastify('Expense created', 'success')
+      setTitle('')
+      setTotalAmount(undefined)
+      fetch && fetch()
     } catch (e) {
       console.log(e)
     }

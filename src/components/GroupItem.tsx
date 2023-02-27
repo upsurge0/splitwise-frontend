@@ -1,16 +1,18 @@
 import classNames from 'classnames'
 import { BiGroup } from 'react-icons/bi'
+import { Link } from 'react-router-dom'
 import avatar from '../assets/avatar.svg'
 
 type Props = {
   even?: boolean
   name: string
   type?: 'regular' | 'friend'
+  groupId: number
 }
 
-const GroupItem = ({ name, even = false, type = 'regular' }: Props) => {
+const GroupItem = ({ name, even = false, type = 'regular', groupId }: Props) => {
   return (
-    <div
+    <Link to={`/groups/${groupId}`}
       className={classNames(
         'flex items-center gap-4 justify-between px-4 py-6 rounded-lg hover:outline-primary outline-none cursor-pointer',
         even && 'bg-[#25272e]'
@@ -25,7 +27,7 @@ const GroupItem = ({ name, even = false, type = 'regular' }: Props) => {
         <h2 className="text-lg">{name}</h2>
       </div>
       <span className="text-red invisible">you owe $1.4</span>
-    </div>
+    </Link>
   )
 }
 

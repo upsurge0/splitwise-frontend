@@ -23,3 +23,20 @@ export type Group = {
   type: 'regular' | 'friend'
   members: Member[]
 }
+
+export type Expense = {
+  expense_id: number
+  title: string
+  amount: number
+  group_id: number
+  created_at: string
+  updated_at:string
+  type: 'multiple' | 'individual'
+  paid_by: User
+  members: Record<string, {
+    transaction_id: number
+    user: User
+    owed: number
+  }>
+  balance: number
+}

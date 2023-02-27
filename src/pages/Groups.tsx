@@ -38,7 +38,7 @@ const Groups = () => {
             {groups.filter(g => g.type !== 'friend').map((g, i) => {
               let even = false
               if (i % 2 === 0) even = true
-              return <GroupItem name={g.name!} even={even} key={g.group_id} />
+              return <GroupItem name={g.name!} even={even} key={g.group_id} groupId={g.group_id} />
             })}
           </div>
         </div>

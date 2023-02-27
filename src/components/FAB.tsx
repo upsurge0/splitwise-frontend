@@ -4,7 +4,11 @@ import { CgNotes } from 'react-icons/cg'
 import { Link, useLocation } from 'react-router-dom'
 import AddExpense from './AddExpense'
 
-const FAB = () => {
+type Props ={
+  fetch?: () => void
+}
+
+const FAB = ({fetch}: Props) => {
   const pathname = useLocation().pathname
   const [isOpen, setIsOpen] = useState(false)
 
@@ -31,7 +35,7 @@ const FAB = () => {
         Add expense
       </button>
 
-      <AddExpense isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AddExpense isOpen={isOpen} setIsOpen={setIsOpen} fetch={fetch} />
     </div>
   )
 }
