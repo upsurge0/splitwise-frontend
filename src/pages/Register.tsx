@@ -41,7 +41,7 @@ function Register() {
           user: res.data.user,
         })
       )
-      navigate('/home')
+      navigate('/groups')
     } catch (e: any) {
       setError(e.response?.data?.error[0])
     }

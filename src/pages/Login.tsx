@@ -32,7 +32,7 @@ function Login() {
         })
       )
 
-      navigate('/home')
+      navigate('/groups')
     } catch (e: any) {
       setError(e.response?.data?.error)
     }
@@ -78,7 +78,7 @@ function Login() {
           </div>
           <span
             className={classnames(
-              'text-red-500',
+              'text-red',
               error !== 'error' ? 'visible' : 'invisible'
             )}
           >

@@ -34,7 +34,7 @@ const Groups = () => {
       <div className="flex flex-col w-full">
         <Topbar title="Groups" />
         <div className="flex flex-col px-4 md:px-12  gap-1 ">
-          <div className="max-h-[440px] scrollbar-thin scrollbar-thumb-[#808191] scrollbar-track-blue-[#1f2128] scrollbar-thumb-rounded-lg px-4 py-1">
+          <div className="max-h-[440px] scrollbar-thin scrollbar-thumb-[#808191] scrollbar-track-blue-[#1f2128] scrollbar-thumb-rounded-lg px-4 py-1 flex flex-col gap-2">
             {groups.filter(g => g.type !== 'friend').map((g, i) => {
               let even = false
               if (i % 2 === 0) even = true

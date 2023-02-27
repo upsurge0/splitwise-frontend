@@ -11,9 +11,9 @@ const useIsLoggedIn = () => {
   useEffect(() => {
     if(pathname !== '/') {
       if (!user.isLoggedIn) return navigate('/login')
-      if (pathname === '/login') return navigate('/home')
+      if (pathname === '/login') return navigate('/groups')
     } else {
-      if (user.isLoggedIn) return navigate('/home')
+      if (user.isLoggedIn) return navigate('/groups')
     }
   }, [user])
 }

@@ -12,10 +12,10 @@ type Props = {
 
 const GroupItem = ({ name, even = false, type = 'regular', groupId }: Props) => {
   return (
-    <Link to={type === 'regular' ? `/groups/${groupId}` : `/friends/${groupId}`}
+    <Link to={type === 'regular' ? `/groups/${groupId}` : '/friends'}
       className={classNames(
         'flex items-center gap-4 justify-between px-4 md:px-8 py-6 rounded-lg hover:outline-primary outline-none cursor-pointer',
-        even && 'bg-[#25272e]'
+        even ? 'bg-[#25272e]' : 'border-divider border'
       )}
     >
       <div className="flex items-center gap-4">

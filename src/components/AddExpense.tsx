@@ -57,6 +57,9 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
     if (!totalAmount) {
       return toastify('Total amount required', 'error')
     }
+    if (totalAmount < 0) {
+      return toastify('Total amount cannot be negative', 'error')
+    }
 
     let members
 
@@ -147,7 +150,7 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
               <input
                 type="text"
                 placeholder="Enter a Description"
-                className="bg-[#242731] outline-none text-lg"
+                className="bg-[#242731] outline-none text-lg border-b border-icon w-[180px]"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -156,7 +159,7 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
                 <input
                   type="number"
                   placeholder="0.00"
-                  className="bg-[#242731] outline-none text-4xl max-w-[200px] overflow-hidden w-fit"
+                  className="bg-[#242731] outline-none text-4xl max-w-[200px] overflow-hidden border-b border-icon w-20"
                   onWheel={(e) => e.currentTarget.blur()}
                   value={totalAmount}
                   onChange={(e) => setTotalAmount(+e.target.value)}
@@ -181,7 +184,10 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
             </span>
             <span>
               paid by{' '}
-              <button className="bg-[#2f3044] hover:bg-[#4d4a64] rounded-xl px-2 text-primary" type='button'>
+              <button
+                className="bg-[#2f3044] hover:bg-[#4d4a64] rounded-xl px-2 text-primary"
+                type="button"
+              >
                 name
               </button>
               and split
@@ -197,7 +203,10 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
           <div className="flex justify-end gap-4 pt-4">
             <button
               className="flex items-center py-3 px-5 gap-4 bg-[#4d4a64] hover:bg-[#434462] rounded-lg text-md"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false)
+                setIsSplitOptionsOpen(false)
+              }}
             >
               Cancel
             </button>
