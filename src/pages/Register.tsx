@@ -62,6 +62,7 @@ function Register() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
             className="px-6 py-4 rounded-md bg-secondaryBackground focus:outline-primary outline-none"
@@ -69,6 +70,7 @@ function Register() {
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
           <input
             className="px-6 py-4 rounded-md bg-secondaryBackground focus:outline-primary outline-none"
@@ -76,6 +78,7 @@ function Register() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <input
             className="px-6 py-4 rounded-md bg-secondaryBackground focus:outline-primary outline-none"
@@ -83,6 +86,7 @@ function Register() {
             placeholder="Confirm Password"
             value={cpassword}
             onChange={(e) => setCPassword(e.target.value)}
+            required
           />
           <button
             type="submit"

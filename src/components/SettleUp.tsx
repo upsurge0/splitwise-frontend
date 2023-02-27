@@ -16,7 +16,7 @@ type Props = {
   fetch?: () => void
 }
 
-const SettleUp = ({ isOpen: isSettleUpOpen, setIsOpen }: Props) => {
+const SettleUp = ({ isOpen: isSettleUpOpen, setIsOpen, fetch }: Props) => {
   const groupId = useParams().id
   const groups = useSelector((state: RootState) => state.group.groups)
   const [currentGroup, setCurrentGroup] = useState<Group>()
@@ -78,6 +78,7 @@ const SettleUp = ({ isOpen: isSettleUpOpen, setIsOpen }: Props) => {
       } else {
         await axiosInstance.put(`/groups/${groupId}/settleup`)
       }
+      fetch && fetch()
       setIsOpen(false)
       toastify('Settled up', 'success')
     } catch (e) {
