@@ -181,7 +181,7 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
             </span>
             <span>
               paid by{' '}
-              <button className="bg-[#2f3044] hover:bg-[#4d4a64] rounded-xl px-2 text-primary">
+              <button className="bg-[#2f3044] hover:bg-[#4d4a64] rounded-xl px-2 text-primary" type='button'>
                 name
               </button>
               and split
