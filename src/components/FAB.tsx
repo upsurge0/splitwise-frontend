@@ -3,6 +3,7 @@ import { BsPlus } from 'react-icons/bs'
 import { CgNotes } from 'react-icons/cg'
 import { Link, useLocation } from 'react-router-dom'
 import AddExpense from './AddExpense'
+import SettleUp from './SettleUp'
 
 type Props ={
   fetch?: () => void
@@ -10,7 +11,8 @@ type Props ={
 
 const FAB = ({fetch}: Props) => {
   const pathname = useLocation().pathname
-  const [isOpen, setIsOpen] = useState(false)
+  const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false)
+  const [isSettleUpOpen, setIsSettleUpOpen] = useState(false)
 
   return (
     <div className="flex gap-4 absolute bottom-4 right-4 md:right-16">
@@ -22,20 +24,23 @@ const FAB = ({fetch}: Props) => {
           >
             <BsPlus />
           </Link>
-          <button className="flex items-center py-3 px-6 gap-4 bg-[#4d4a64] hover:bg-[#434462] rounded-lg text-lg">
+          <button className="flex items-center py-3 px-6 gap-4 bg-[#4d4a64] hover:bg-[#434462] rounded-lg text-lg"
+          onClick={() => setIsSettleUpOpen(true)}
+          >
             Settle up
           </button>
         </>
       )}
       <button
         className="flex items-center py-3 px-6 gap-4 bg-primary hover:bg-[#584cac] rounded-lg text-lg"
-        onClick={() => setIsOpen(true)}
+        onClick={() => setIsAddExpenseOpen(true)}
       >
         <CgNotes stroke="#000" />
         Add expense
       </button>
 
-      <AddExpense isOpen={isOpen} setIsOpen={setIsOpen} fetch={fetch} />
+      <AddExpense isOpen={isAddExpenseOpen} setIsOpen={setIsAddExpenseOpen} fetch={fetch} />
+      <SettleUp isOpen={isSettleUpOpen} setIsOpen={setIsSettleUpOpen} />
     </div>
   )
 }

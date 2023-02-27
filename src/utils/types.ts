@@ -21,6 +21,7 @@ export type Group = {
   group_id: number
   name: null | string
   type: 'regular' | 'friend'
+  simplify: boolean
   members: Member[]
 }
 

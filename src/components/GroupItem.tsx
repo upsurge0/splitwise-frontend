@@ -12,9 +12,9 @@ type Props = {
 
 const GroupItem = ({ name, even = false, type = 'regular', groupId }: Props) => {
   return (
-    <Link to={`/groups/${groupId}`}
+    <Link to={type === 'regular' ? `/groups/${groupId}` : `/friends/${groupId}`}
       className={classNames(
-        'flex items-center gap-4 justify-between px-4 py-6 rounded-lg hover:outline-primary outline-none cursor-pointer',
+        'flex items-center gap-4 justify-between px-4 md:px-8 py-6 rounded-lg hover:outline-primary outline-none cursor-pointer',
         even && 'bg-[#25272e]'
       )}
     >
@@ -22,9 +22,9 @@ const GroupItem = ({ name, even = false, type = 'regular', groupId }: Props) => 
         {type === 'regular' ? (
           <BiGroup className="text-4xl" />
         ) : (
-          <img className="h-12" src={avatar} alt="avatar" />
+          <img className="h-10" src={avatar} alt="avatar" />
         )}
-        <h2 className="text-lg">{name}</h2>
+        <h2 className="text-xl">{name}</h2>
       </div>
       <span className="text-red invisible">you owe $1.4</span>
     </Link>

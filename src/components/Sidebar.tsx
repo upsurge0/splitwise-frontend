@@ -9,11 +9,11 @@ type Props = {}
 
 const Sidebar = (props: Props) => {
   const items = [
-    {
-      icon: <FiHome />,
-      title: 'Home',
-      route: '/home',
-    },
+    // {
+    //   icon: <FiHome />,
+    //   title: 'Home',
+    //   route: '/home',
+    // },
     {
       icon: <BiGroup />,
       title: 'Groups',
@@ -28,7 +28,7 @@ const Sidebar = (props: Props) => {
   const route = useLocation()
 
   return (
-    <div className="hidden md:flex">
+    <div className="hidden lg:flex">
       <div className="flex flex-col px-2 h-screen py-10 max-w-[350px]">
         <div className="flex items-center mx-auto gap-4">
           <img className="w-16" src={logo} alt="splitwise" />

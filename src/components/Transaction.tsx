@@ -46,7 +46,7 @@ const Transaction = ({ even = true, expense: e }: Props) => {
             </span>
             <span className="font-semibold tracking-widest">${e.amount}</span>
           </div>
-          <div className="flex flex-col items-start justify-center w-[150px]">
+          <div className="flex flex-col items-start justify-center md:w-[150px]">
             <span className="text-gray-300">
               {e.paid_by.user_id === user.user_id
                 ? 'you lent'
@@ -104,8 +104,10 @@ const Transaction = ({ even = true, expense: e }: Props) => {
               .map(([_, v]) => (
                 <div className="flex items-center gap-4 text-lg">
                   <img src={avatar} alt="avatar" className="h-12" />
-                  <span>
-                    {v.user.name} owes ${v?.owed ?? 0}
+                  <span className='flex gap-1'>
+                    <span className='font-semibold'>{v.user.name}</span>
+                     owes 
+                    <span className='font-semibold'>${v?.owed ?? 0}</span>
                   </span>
                 </div>
               ))}
