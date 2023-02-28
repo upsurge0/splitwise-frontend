@@ -14,7 +14,7 @@ const AddMember = ({ id, email, setEmail, userNotFound }: MemberProps) => {
       <img src={avatar} alt="avatar" className="h-10" />
       <input
         className="px-4 py-2 rounded-md bg-secondaryBackground focus:outline-primary outline-none"
-        type="text"
+        type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(id, e.target.value)}

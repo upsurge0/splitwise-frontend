@@ -103,9 +103,9 @@ const AddGroup = () => {
     console.log({ data, commonUsers, ids })
 
     try {
-      // const res = await axiosInstance.post('/groups', data)
-      // navigate('/groups')
-      // toastify('Group created', 'success')
+      const res = await axiosInstance.post('/groups', data)
+      navigate('/groups')
+      toastify('Group created', 'success')
     } catch (e) {
       console.log(e)
     }
