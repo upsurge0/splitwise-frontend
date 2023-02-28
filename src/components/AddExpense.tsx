@@ -23,6 +23,7 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
   const [totalAmount, setTotalAmount] = useState<number>()
   const [splitType, setSplitType] = useState<SplitType['type']>('equal')
   const [groupId, setGroupId] = useState<number>()
+  const [paidBy, setPaidBy] = useState<number>()
 
   const [isSplitOptionsOpen, setIsSplitOptionsOpen] = useState(false)
   const axiosInstance = useAxiosInstance()
@@ -90,7 +91,7 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
       expense: {
         title,
         amount: totalAmount,
-        paid_by_id: user.user_id,
+        paid_by_id: paidBy,
         category: group?.type === 'regular' ? 'multiple' : 'individual',
         members: members.map((m) => ({ user_id: m.user_id, owed: m.amount })),
       },
@@ -112,6 +113,10 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
   useEffect(() => {
     fetchGroups()
   }, [])
+
+  useEffect(() => {
+    setPaidBy(user.user_id)
+  }, [user])
   useEffect(() => {
     if (groups.length > 0 && groupId === undefined)
       setGroupId(groups[0].group_id)
@@ -182,14 +187,28 @@ const AddExpense = ({ isOpen: isAddExpenseOpen, setIsOpen, fetch }: Props) => {
                 ))}
               </select>
             </span>
-            <span>
-              paid by{' '}
-              <button
-                className="bg-[#2f3044] hover:bg-[#4d4a64] rounded-xl px-2 text-primary"
-                type="button"
+            <span className="flex gap-2 items-center pr-20">
+              paid by
+              <select
+                className="bg-[#2f3044] cursor-pointer px-4 py-2 outline-none"
+                value={paidBy}
+                onChange={(e) => setPaidBy(+e.target.value)}
               >
-                name
-              </button>
+                {groups
+                  .filter((g) => g.type === 'friend')
+                  .map((g) =>
+                    g.members
+                      .filter((m) => m.user_id !== user.user_id)
+                      .map((m) => (
+                        <option key={m.user_id} value={m.user_id}>
+                          {m.name}
+                        </option>
+                      ))
+                  )}
+                <option key={user.user_id} value={user.user_id}>
+                  you
+                </option>
+              </select>
               and split
               <button
                 className="bg-[#2f3044] hover:bg-[#4d4a64] rounded-xl px-2 text-primary"

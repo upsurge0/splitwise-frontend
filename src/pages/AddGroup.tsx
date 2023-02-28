@@ -56,11 +56,11 @@ const AddGroup = () => {
       members.some(({ email }) => u.email === email)
     )
 
-    setMembers((mem) =>
-      mem.map((m) => {
-        return { ...m, userNotFound: false }
-      })
-    )
+    // setMembers((mem) =>
+    //   mem.map((m) => {
+    //     return { ...m, userNotFound: false }
+    //   })
+    // )
     members.filter((u) => {
       const check =
         u.email !== '' && !users.some(({ email }) => u.email === email)
@@ -80,7 +80,14 @@ const AddGroup = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const commonUsers = checkUsers()
-    console.log(commonUsers)
+    let temp = false
+    members.forEach(m => {
+      if(m.userNotFound){
+        temp = true
+        return
+      }
+    })
+    console.log({members, temp})
     if (commonUsers.length === 0) return
     const ids = commonUsers.map((c) => {
       // @ts-ignore
@@ -96,9 +103,9 @@ const AddGroup = () => {
     console.log({ data, commonUsers, ids })
 
     try {
-      const res = await axiosInstance.post('/groups', data)
-      navigate('/groups')
-      toastify('Group created', 'success')
+      // const res = await axiosInstance.post('/groups', data)
+      // navigate('/groups')
+      // toastify('Group created', 'success')
     } catch (e) {
       console.log(e)
     }
